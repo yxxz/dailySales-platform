@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <title>平台业务销售日报</title>
+    <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dailySales-platform.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/lc_switch.css">
+	<link rel="stylesheet" href="css/normalize3.0.2.min.css" charset="UTF-8"/>
+    <link rel="stylesheet" href="css/mobiscroll.css" charset="UTF-8"/>
+    <link rel="stylesheet" href="css/mobiscroll_date.css" charset="UTF-8" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+	  	window.onload = function(){
+	  		var loading = document .getElementById('salesModel');
+	  		var winHeight = window.screen.height;
+	  		loading.style.height = winHeight + "px";
+			}
+	</script>
+  </head>
+  <body>
+    <!-- 模态框 -->
+    <div class="modal fade bs-example-modal-sm text-center" tabindex="-1" role="dialog" aria-labelledby="salesModel" id="salesModel">
+	  <div class="modal-dialog modal-sm center-block" style="margin-top:65%;">
+		<img src="../../img/baoziLoading.gif" id="Loading_img">
+		<div style="color:#ccc;font-size:12px">努力加载中…</div> 
+	  </div>
+	</div>
+	<div class="dailyBox">
+	<div id="topContent" style="height:30%;max-height:160px;">
+		<!-- 顶部导航 -->
+<!-- 	    <div class="dailySales_header">
+	        <header class="header">
+	            <img src="imgs/back.png" alt="" class="back" id="back" onclick="backpage()">
+	            <span id="dailySales_title">平台业务销售日报</span>
+	            
+	        </header>
+	        <a href="javascript:;" class="dateFilters open-popup" id="dateImg" >筛选</a>
+	        
+	    </div> -->
+	    <!-- 头部菜单 -->
+		<div class="menu_tab">
+	            <div id="menu_tab_Box">
+	                <span url_b="" data-type="1" class="menu_tabfont"><span class=""></span>成交量</span>
+	                <span url_b="" class="menu_tabfont"data-type="2"><span class=""></span>进件量</span>
+	                <span url_b="" class="menu_tabfont" data-type="3" ><span class=""></span>审批通过率</span>
+	                <span url_b="" class="menu_tabfont" data-type="4" ><span class=""></span>融资额</span>
+	            </div>
+	    </div>
+	    <!-- 头部 下拉菜单 -->
+	    <div class="menu_tab_drap">
+			<ul class="menu_tab_drapUl"> 
+				<li class="menu_tab_tit drap1"><span class="menu-allpro_font">全部项目</span><img class="subimg" src="imgs/up.png">
+					<ul class="sub-menu" id="sub-menu-allpro"> 
+					</ul> 
+				</li> 
+				<li class="menu_tab_tit drap2"><span class="menu-orders_font">全部产品</span><img class="subimg" src="imgs/up.png">
+					<ul class="sub-menu" id="sub-menu-orderS"> 
+					</ul> 
+				</li> 
+				<li class="menu_tab_tit drap3"><span class="menu-channel_font">全部渠道</span><img class="subimg" src="imgs/up.png">
+					<ul class="sub-menu" id="sub-menu-channelT"> 
+					</ul> 
+				</li>
+			</ul> 
+	    </div>
+	     <!-- 表格标题   -->
+	    <span class="conTop allWidth">
+	            <span class="nityFiv">
+	                    <span class="font12gray trendName" id="tipT"></span>
+	                <span class="right button" id="switch">
+	                    <!-- <input type="checkbox" name="check-s" value="6" class="lcs_check lcs_tt1" autocomplete="off" /> -->
+	                </span>
+
+	            </span>
+	            
+	    </span>
+	   	<div class="div_inp" style="text-align:center;font-size: 12px;color: #666;">
+	   		<!-- <div style="display: block;width: 100%;position: absolute;z-index: 111;height: 25px;"></div> -->
+	   		<div id="salesDate_div"></div>
+	   		<div class="date_tit">日期:</div><span style="width: 100%;text-align:center" id="salesDate" class="input" bind_elem="#dateImg"></span>
+	   	    <img id="dateImg" class="dateImg" src="imgs/up.png">
+	   		<!-- <div class="date_tit">日期:</div><span style="width: 100%;text-align:center" id="salesDate" class="input" bind_elem="#dateImg"></span><img id="dateImg" class="dateImg" src="imgs/up.png"> -->
+	    	<!-- <div style="height:40px;text-align:center;line-height:40px" id="salesDate"></div> -->
+	  	</div>
+  	</div>
+	<!-- 下拉模态框 -->
+	<div class="selectM" id="selectModel">
+	</div>
+    <!-- 点击‘趋势’隐藏 -->
+	<div id="salesDaily_Div" style="height:70%;position: relative;">
+	<!-- 下拉模态框 -->
+	<div class="selectM" id="selectModel">
+	</div>
+	  <div class="container-fuild" style="text-align:center;background: #fff;margin-bottom: 15px;">
+	        <div class="btn-group" data-toggle="buttons">
+	          <label class="btn btn-title-button active" id="sales_btn_day">
+	            <input type="radio" name="options" id="option1" autocomplete="off" checked> 当日 
+	          </label>
+	          <label class="btn btn-title-button" id="sales_btn_month">
+	            <input type="radio" name="options" id="option2" autocomplete="off">月累计
+	          </label>
+	          <label class="btn btn-title-button" id="sales_btn_year">
+	            <input type="radio" name="options" id="option3" autocomplete="off">年累计
+	          </label>
+	          <label class="btn btn-title-button" id="sales_btn_sum">
+	            <input type="radio" name="options" id="option4" autocomplete="off">总累计
+	          </label>
+	          <label class="btn btn-title-button" id="sales_btn_trend">
+	            <input type="radio" name="options" id="trend" autocomplete="off"> 趋势 
+	          </label>
+	        </div>
+	</div>
+	
+	 <div id="trendId" style="width:100%;display:none;position:fixed"></div>
+
+	 <!-- ========================= -->
+	 <div class="center-block text-center" id="norights" style="display:none"><img src="../../img/NOTHING@3.png"  style="margin-top:13%;width:20%"><h4 style="color:#ccc">当前登录人没有查看权限</h4></div>
+	 
+	 <div class="tableBox" id="sales_table" style="visibility:hidden;overflow-y: auto;">
+	    <div class="fixedHeader col1 row1">
+	      <table>
+	        <tr>
+	          <td></td>
+	        </tr>
+	      </table>
+	    </div>
+	    <div class="tHeader col2 row1">
+	      <table id="condition_list">
+	        <tr>
+	          <td><div class="tabTit_First">大区</div></td>
+	          <td><div class="tabTit_Thirdc"></div></td>
+	          <td><div class="tabTit_Fourthc"></div></td>
+	        </tr>  
+	      </table>
+	    </div>
+	    <!-- <div class="content_box"> -->
+	    <div class="tLeft col1 row2 srollDiv" >
+	      <table class="" border="0" cellpadding="0" cellspacing="0" id="city_list">
+	      </table>
+	    </div>
+	    <div class="center-block text-center" id="nothing" style="display:none"><img src="../../img/NOTHING@3.png"  style="margin-top:13%;width:20%"><h4 style="color:#ccc">nothing...</h4></div>
+	    <div class="content col2 row2 srollDiv" id="salesDailyCont"></div>
+	    <!-- </div> -->
+	    
+	    <p style="position:fixed;bottom:0px; color:red;font-size:12px;margin:0px;background:#fff;width:100%" id="biaozhu_font">
+	    	<!-- *注：成交合同量=期间内生效合同量-期间内生效后取消的合同量。<br>融资额=期间内生效合同总融资额-期间内生效后取消的合同总融资额。 -->
+	    </p>
+	  </div>
+
+<!-- ========================= -->
+<!-- <div class="tableBox" id="sales_table" style="visibility:hidden;">
+	表头 
+	<div id="qs_hidden">
+	    <div class="tHeader row1">
+	    <div class="fixedHeader col1 row1">
+	      <table>
+	        <tr>
+	          <td class="tabTit"></td>
+	        </tr>
+	      </table>
+	    </div>
+	      <table id="condition_list">
+	        <tr>
+	          <td><div class="tabTit_First">大区</div></td>
+	          <td><div class="tabTit_Thirdc"></div></td>
+	          <td><div class="tabTit_Fourthc"></div></td>  
+	          <td><div class="tabTit_sp" style="display:none">拒绝量</div></td>      
+	        </tr>  
+	      </table>
+	    </div>
+	    <div class="tLeft col1 row2" >
+	      <table class="" border="0" cellpadding="0" cellspacing="0" id="city_list">
+	      </table>
+	    </div>
+	    <div class="content col2 row2" id="salesDailyCont"></div>
+	    <p style="position:fixed;bottom:0px; color:red;font-size:12px;padding:7px;margin:0px;background:#fff;width:100%" id="biaozhu_font">
+	    	*注：成交合同量=期间内生效合同量-期间内生效后取消的合同量。<br>融资额=期间内生效合同总融资额-期间内生效后取消的合同总融资额。
+	    </p>
+	  </div>	
+	</div>
+	<div id="trendId" style="width:100%;display:none;position:fixed;margin-top: 50px;"></div> -->
+</div>
+</div>
+    <!-- 正文 结束 -->
+    <script src="../../lib/jquery.min.js"></script>
+    <script src="js/mobiscroll_date.js"></script> 
+    <script src="js/mobiscroll.js"></script> 
+    <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../js/echarts-all.js"></script>
+    <script src="js/lc_switch.js"></script>
+    <script src="trend-options.js"></script>
+    <script src="dailySales-platform.js"></script>
+  </body>
+</html>
